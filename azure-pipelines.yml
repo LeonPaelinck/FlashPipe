@@ -1,0 +1,43 @@
+trigger:
+  - main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: cpi-dev
+- group: cpi-prod
+
+resources:
+  containers:
+  - container: flashpipe
+    image: engswee/flashpipe:2.4.5
+  - container: flashpipe-lite
+    image: engswee/flashpipe:2.4.5-lite
+
+jobs:
+  - job: build
+    container: flashpipe
+    steps:
+      # Upload/Update design time
+      - bash: /usr/bin/update_designtime_artifact.sh
+        displayName: 'Update/Upload Groovy XML Transformation to design time'
+        env:
+          HOST_TMN: $(dev-host-tmn)
+          HOST_OAUTH: $(dev-oauth-host)
+          OAUTH_CLIENTID: $(dev-client-id)
+          OAUTH_CLIENTSECRET: $(dev-client-secret)
+          IFLOW_ID: GroovyXMLTransformation
+          IFLOW_NAME: "Groovy XML Transformation"
+          PACKAGE_ID: FlashPipeDemo
+          PACKAGE_NAME: "FlashPipe Demo"
+          GIT_SRC_DIR: "$(Build.SourcesDirectory)/FlashPipe Demo/Groovy XML Transformation"
+      # Deploy runtime
+      - bash: /usr/bin/deploy_runtime_artifact.sh
+        displayName: 'Deploy Groovy XML Transformation to runtime'
+        env:
+          HOST_TMN: $(dev-host-tmn)
+          HOST_OAUTH: $(dev-oauth-host)
+          OAUTH_CLIENTID: $(dev-client-id)
+          OAUTH_CLIENTSECRET: $(dev-client-secret)
+          IFLOW_ID: GroovyXMLTransformation
