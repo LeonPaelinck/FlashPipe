@@ -1,7 +1,6 @@
 name: Sync FlashPipe Demo Package IFlows from Tenant
 on:
   workflow_dispatch:
-  schedule:
 
 jobs:
   sync:
