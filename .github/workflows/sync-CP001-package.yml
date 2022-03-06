@@ -1,4 +1,4 @@
-name: Sync FlashPipe Demo Package IFlows from Tenant
+name: Sync FlashPipe CP001 IFlows from Tenant
 on:
   workflow_dispatch:
 
