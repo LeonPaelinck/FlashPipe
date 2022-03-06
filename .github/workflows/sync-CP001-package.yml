@@ -9,8 +9,8 @@ jobs:
       image: engswee/flashpipe:2.x.x-lite
     env:
       HOST_TMN: ${{ secrets.DEV_HOST_TMN }}
-      OAUTH_CLIENTID: ${{ secrets.DEV_USER }}
-      OAUTH_CLIENTSECRET: ${{ secrets.DEV_PASSWORD }}
+      BASIC_USERID: ${{ secrets.DEV_USER }}
+      BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} 
     steps:
       - uses: actions/checkout@v2
       - name: 'Set GIT_SRC_DIR for sync_to_git_repository.sh'
