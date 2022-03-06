@@ -30,9 +30,9 @@ jobs:
     container:
       image: engswee/flashpipe:2.x.x-lite
     env:
-      HOST_TMN: 1b33e07btrial.it-cpitrial06.cfapps.us10-001.hana.ondemand.com
-      AUTH_CLIENTID: ${{ secrets.DEV_CLIENT_ID }}
-      AUTH_CLIENTSECRET: ${{ secrets.DEV_CLIENT_SECRET }}     
+      HOST_TMN: ${{ secrets.DEV_HOST_TMN }}
+      BASIC_USERID: ${{ secrets.DEV_CLIENT_ID }}
+      BASIC_PASSWORD: ${{ secrets.DEV_CLIENT_SECRET }}     
     steps:
     - uses: actions/checkout@v2
     - name: 'Set GIT_SRC_DIR for sync_to_git_repository.sh'
