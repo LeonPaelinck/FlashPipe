@@ -60,7 +60,9 @@ jobs:
       image: engswee/flashpipe:2.x.x-lite
     steps:
       # Upload/Update design time
-      - run: echo /usr/bin/update_designtime_artifact.sh
+      - name: 'Upload/Update design time'
+        run: echo /usr/bin/update_designtime_artifact.sh
+        shell: bash
         env:
           HOST_TMN: $(dev-host-tmn)
           BASIC_USERID: $(dev-user) # When using Basic authentication
@@ -71,7 +73,9 @@ jobs:
           PACKAGE_NAME: "CP001 - TrainingPackage"
           GIT_SRC_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
       # Deploy runtime
-      - run: echo /usr/bin/deploy_runtime_artifact.sh
+      - name: 'Upload/Update design time'
+        run: echo /usr/bin/deploy_runtime_artifact.sh
+        shell: bash
         env:
           HOST_TMN: $(dev-host-tmn)
           BASIC_USERID: $(dev-user) # When using Basic authentication
