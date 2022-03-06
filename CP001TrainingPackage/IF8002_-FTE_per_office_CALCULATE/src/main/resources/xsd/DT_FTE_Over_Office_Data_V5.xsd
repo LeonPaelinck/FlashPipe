@@ -1,0 +1,58 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="root">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FOCostCenter">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:string" name="externalCode"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="EmpJob" maxOccurs="unbounded" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element type="xs:float" name="customDouble1"/>
+							<xs:element type="xs:string" name="customDate11"/>
+							<xs:element name="costCenterNav">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="FOCostCenter">
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element type="xs:string" name="externalCode"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element type="xs:short" name="jobCode"/>
+							<xs:element name="cust_ParticipationBasicAmounts" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:short" name="cust_employeeFunction"/>
+										<xs:element type="xs:string" name="cust_typeDienst"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element type="xs:string" name="userId"/>
+							<xs:element name="EmpCostDistributionItem" minOccurs="0">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element type="xs:int" name="externalCode"/>
+										<xs:element type="xs:string" name="costCenter"/>
+										<xs:element type="xs:byte" name="percentage"/>
+										<xs:element type="xs:short" name="EmpCostDistribution_usersSysId"/>
+										<xs:element type="xs:dateTime" name="EmpCostDistribution_effectiveStartDate"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element type="xs:dateTime" name="customDate10"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
