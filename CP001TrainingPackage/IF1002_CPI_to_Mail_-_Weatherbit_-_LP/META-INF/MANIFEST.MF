@@ -33,7 +33,7 @@ Import-Package: com.sap.esb.application.services.cxf.interceptor,com.s
 Origin-Bundle-Name: IF1002 CPI to Mail - Weatherbit - LP
 SAP-RuntimeProfile: iflmap
 Bundle-Name: IF1002 CPI to Mail - Weatherbit - LP
-Bundle-Version: 1.0.3
+Bundle-Version: 1.0.4
 SAP-NodeType: IFLMAP
 SAP-BundleType: IntegrationFlow
 Import-Service: com.sap.esb.webservice.audit.log.AuditLogger,com.sap.e
