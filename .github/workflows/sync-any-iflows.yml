@@ -53,3 +53,27 @@ jobs:
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
+        
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: engswee/flashpipe:2.x.x-lite
+    steps:
+      # Upload/Update design time
+      - run: echo /usr/bin/update_designtime_artifact.sh
+        env:
+          HOST_TMN: $(dev-host-tmn)
+          BASIC_USERID: $(dev-user) # When using Basic authentication
+          BASIC_PASSWORD: $(dev-password) # When using Basic authentication
+          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+          IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
+          PACKAGE_ID: CP001TrainingPackage
+          PACKAGE_NAME: "CP001 - TrainingPackage"
+          GIT_SRC_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
+      # Deploy runtime
+      - run: echo /usr/bin/deploy_runtime_artifact.sh
+        env:
+          HOST_TMN: $(dev-host-tmn)
+          BASIC_USERID: $(dev-user) # When using Basic authentication
+          BASIC_PASSWORD: $(dev-password) # When using Basic authentication
+          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
