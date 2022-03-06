@@ -32,7 +32,7 @@ jobs:
     env:
       HOST_TMN: ${{ secrets.DEV_HOST_TMN }}
       BASIC_USERID: ${{ secrets.DEV_CLIENT_ID }}
-      BASIC_PASSWORD: ${{ secrets.DEV_CLIENT_SECRET }}     
+      BASIC_PASSWORD: ${{ secrets.DEV_USER }}     
     steps:
     - uses: actions/checkout@v2
     - name: 'Set GIT_SRC_DIR for sync_to_git_repository.sh'
