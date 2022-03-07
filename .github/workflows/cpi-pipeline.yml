@@ -1,5 +1,5 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: Sync and upload/deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+name: Sync and upload/deploy any IF from any Package
 on:
   workflow_dispatch:
     inputs:
