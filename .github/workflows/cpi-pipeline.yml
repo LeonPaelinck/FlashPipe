@@ -1,8 +1,9 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
-name: sync and upload/deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+name: Sync and upload/deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP
 on:
   workflow_dispatch:
-    
+  schedule:
+  - cron:  "30 7 * * *" # Runs at 14:30 UTC
 
 jobs:
 
