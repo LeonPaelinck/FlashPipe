@@ -1,6 +1,8 @@
 name: Sync FlashPipe CP001 IFlows from Tenant
 on:
   workflow_dispatch:
+  schedule:
+  - cron:  "30 7 * * *" # Runs at 14:30 UTC
 
 jobs:
   sync:
