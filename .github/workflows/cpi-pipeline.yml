@@ -1,0 +1,44 @@
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: cpi-pipeline
+on:
+  push:
+    branches:
+      -  main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: engswee/flashpipe:<flashpipe_version>
+    env:
+      HOST_TMN:  ${{ secrets.DEV_HOST_TMN }}
+      BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
+      BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
+
+    steps:
+      - uses: actions/checkout@v2
+      # Set environment variables for update_designtime_artifact.sh
+      - run: |
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/FlashPipe/CP001TrainingPackage/IF1002_CPI_to_Mail_-_Weatherbit_-_LP" >> $GITHUB_ENV
+          #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
+          #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
+      # Upload/Update design time
+      - name: 'Update/Upload IF1002_CPI_to_Mail_-_Weatherbit_-_LP to design time'
+        run: /usr/bin/update_designtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+          IFLOW_NAME: IF1002 CPI to Mail - Weatherbit - LP
+          PACKAGE_ID: CP001TrainingPackage
+          PACKAGE_NAME: CP001 - TrainingPackage
+          #WORK_DIR: <working_directory> # Optional
+          #VERSION_HANDLING: <version_no_handling_during_update> # Optional
+          #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
+      # Deploy runtime
+      - name: 'Deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP to runtime'
+        run: /usr/bin/deploy_runtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+          #DELAY_LENGTH: <delay_in_seconds> # Optional
+          #MAX_CHECK_LIMIT: <max_check_limit> # Optional
