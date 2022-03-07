@@ -1,0 +1,72 @@
+name: cpi-pipeline
+on:
+  workflow_dispatch:
+      inputs:
+      packageId:
+        description: 'Package ID'
+        required: true
+      packageName:
+        description: 'Package Name'
+        required: true
+      directory:
+        description: 'Target Git directory, relative from repository root (the name of the IF)'
+        required: true
+      integrationFlowId:
+        description: 'The ID of the IF'
+        required: true
+      integrationFlowName:
+        description: 'The name of the IF'
+        required: true
+      draft:
+        description: 'Draft handling (optional) - SKIP (default value if empty), ADD, ERROR'
+        required: false
+      dirNaming:
+        description: 'Naming convention for IFlow directories (optional) - ID (default value if empty), NAME'
+        required: false
+      commitDescription:
+        description: 'Additional commit description (optional)'
+        required: false
+      authorName:
+        description: 'Who gets credit for the update? (for the commit message)'
+        required: false
+      version:
+        description: 'Which version gets deployed? (for the commit message)'
+        required: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: engswee/flashpipe:2.x.x
+    env:
+      HOST_TMN:  ${{ secrets.DEV_HOST_TMN }}
+      BASIC_USERID: ${{ secrets.DEV_USER }} # When using Basic authentication
+      BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
+      
+    steps:
+      - uses: actions/checkout@v2
+      # Set environment variables for update_designtime_artifact.sh
+      - run: |
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}/${{ github.event.inputs.integrationFlowId }}" >> $GITHUB_ENV
+          #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
+          #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
+      # Upload/Update design time
+      - name: 'Update/Upload ${{ github.event.inputs.integrationFlowId }} to design time'
+        run: /usr/bin/update_designtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: ${{ github.event.inputs.integrationFlowId }}
+          IFLOW_NAME: ${{ github.event.inputs.integrationFlowName }} 
+          PACKAGE_ID: ${{ github.event.inputs.packageID }}
+          PACKAGE_NAME: ${{ github.event.inputs.packageName }} 
+          #WORK_DIR: <working_directory> # Optional
+          #VERSION_HANDLING: <version_no_handling_during_update> # Optional
+          #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
+      # Deploy runtime
+      - name: 'Deploy ${{ github.event.inputs.integrationFlowId }} to runtime'
+        run: /usr/bin/deploy_runtime_artifact.sh
+        shell: bash
+        env:
+          IFLOW_ID: ${{ github.event.inputs.integrationFlowId }}
+          #DELAY_LENGTH: <delay_in_seconds> # Optional
+          #MAX_CHECK_LIMIT: <max_check_limit> # Optiona
