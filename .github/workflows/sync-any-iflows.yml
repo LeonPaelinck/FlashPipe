@@ -61,7 +61,7 @@ jobs:
     steps:
       # Upload/Update design time
       - name: 'Upload/Update design time'
-        run: echo /usr/bin/update_designtime_artifact.sh
+        run: /usr/bin/update_designtime_artifact.sh
         shell: bash
         env:
           HOST_TMN: $(dev-host-tmn)
@@ -74,7 +74,7 @@ jobs:
           GIT_SRC_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
       # Deploy runtime
       - name: 'Upload/Update design time'
-        run: echo /usr/bin/deploy_runtime_artifact.sh
+        run: /usr/bin/deploy_runtime_artifact.sh
         shell: bash
         env:
           HOST_TMN: $(dev-host-tmn)
