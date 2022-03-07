@@ -228,7 +228,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>body</key>
-                    <value>Good morning!
+                    <value>Good morning, beautiful!
 
 The weather in ${property.city} is ${property.description} today.
 
@@ -338,7 +338,7 @@ PS. IF you get this mail it means my second pipeline which includes on-the-fly g
                 </ifl:property>
                 <ifl:property>
                     <key>to</key>
-                    <value>leon.paelinck@live.be</value>
+                    <value>rob.hofman@delaware.pro</value>
                 </ifl:property>
                 <ifl:property>
                     <key>cmdVariantUri</key>
@@ -806,7 +806,7 @@ Greetings!</value>
         </bpmn2:callActivity>
         <bpmn2:startEvent id="StartEvent_5" name="Start Timer">
             <bpmn2:outgoing>SequenceFlow_12</bpmn2:outgoing>
-            <bpmn2:timerEventDefinition id="TimerEventDefinition_83586">
+            <bpmn2:timerEventDefinition id="TimerEventDefinition_1688">
                 <bpmn2:extensionElements>
                     <ifl:property>
                         <key>scheduleKey</key>
