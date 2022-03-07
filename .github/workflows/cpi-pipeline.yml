@@ -41,10 +41,11 @@ jobs:
       BASIC_USERID: ${{ secrets.DEV_USER }} #but what if the IF was edited by another user in the tenant?
       BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Git repo
+        uses: actions/checkout@v2
       - name: 'Set GIT_SRC_DIR for sync_to_git_repository.sh'
         run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/CP001TrainingPackage" >> $GITHUB_ENV
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}" >> $GITHUB_ENV
       - name: 'Sync IFlow'
         run: /usr/bin/sync_to_git_repository.sh
         shell: bash
@@ -70,9 +71,11 @@ jobs:
     needs: sync
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout Git repo
+        uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
-      - run: |
+      - name: Setup environment variables for update_designtime_artifact.sh
+        run: |
           echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}/${{ github.event.inputs.integrationFlowId }}" >> $GITHUB_ENV
           #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
           #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
