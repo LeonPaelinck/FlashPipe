@@ -19,7 +19,7 @@ jobs:
       - uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
       - run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/FlashPipe/CP001TrainingPackage/IF1002_CPI_to_Mail_-_Weatherbit_-_LP" >> $GITHUB_ENV
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/CP001TrainingPackage/IF1002_CPI_to_Mail_-_Weatherbit_-_LP" >> $GITHUB_ENV
           #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
           #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
       # Upload/Update design time
