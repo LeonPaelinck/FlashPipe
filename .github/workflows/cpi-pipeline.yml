@@ -12,7 +12,7 @@ jobs:
       image: engswee/flashpipe:2.x.x-lite
     env:
       HOST_TMN:  ${{ secrets.DEV_HOST_TMN }}
-      BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
+      BASIC_USERID: ${{ secrets.DEV_USER }} # When using Basic authentication
       BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} # When using Basic authentication
 
     steps:
