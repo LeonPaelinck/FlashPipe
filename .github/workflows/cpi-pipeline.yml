@@ -51,7 +51,7 @@ jobs:
         env:
           PACKAGE_ID:  ${{ github.event.inputs.packageId }}
           INCLUDE_IDS: ${{ github.event.inputs.integrationFlowId }}
-          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.integrationFlowId }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }} ${{ github.event.inputs.commitDescription }}'
+          COMMIT_MESSAGE: 'Update to version ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }} ${{ github.event.inputs.commitDescription }}'
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
