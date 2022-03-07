@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><parameters><parameter>
+    <key/>
+    <name>timer</name>
+    <type>custom:schedule</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description/>
+    <additionalMetadata/>
+  </parameter><parameter>
+    <key/>
+    <name>runonce</name>
+    <type>custom:schedule</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description/>
+    <additionalMetadata/>
+  </parameter><parameter>
+    <key/>
+    <name>daily</name>
+    <type>custom:schedule</type>
+    <isRequired>false</isRequired>
+    <constraint/>
+    <description/>
+    <additionalMetadata>
+      <isCombobox>false</isCombobox>
+    </additionalMetadata>
+  </parameter><param_references/></parameters>
