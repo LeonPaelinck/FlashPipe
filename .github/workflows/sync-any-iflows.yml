@@ -1,4 +1,4 @@
-name: Sync and Build/Deploy Any IFlows from tenant
+name: Sync any IFlows from tenant
 
 on:
   workflow_dispatch:
