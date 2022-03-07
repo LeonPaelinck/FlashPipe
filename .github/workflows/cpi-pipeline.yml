@@ -2,9 +2,31 @@
 name: Sync and upload/deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP
 on:
   workflow_dispatch:
-  schedule:
-  - cron:  "30 7 * * *" # Runs at 14:30 UTC
-
+    inputs:
+      packageId:
+        description: 'Package ID'
+        required: true
+      directory:
+        description: 'Target Git directory, relative from repository root (the name of the IF)'
+        required: true
+      includedIds:
+        description: 'The ID of the IF'
+        required: false
+      draft:
+        description: 'Draft handling (optional) - SKIP (default value if empty), ADD, ERROR'
+        required: false
+      dirNaming:
+        description: 'Naming convention for IFlow directories (optional) - ID (default value if empty), NAME'
+        required: false
+      #message:
+        #description: 'Commit message (optional)'
+        #required: false
+      authorName:
+        description: 'Who gets credit for the update? (for the commit message)'
+        required: false
+      version:
+        description: 'Which version gets deployed? (for the commit message)'
+        required: false
 jobs:
 
   sync:
@@ -13,7 +35,7 @@ jobs:
       image: engswee/flashpipe:2.x.x-lite
     env:
       HOST_TMN: ${{ secrets.DEV_HOST_TMN }}
-      BASIC_USERID: ${{ secrets.DEV_USER }}
+      BASIC_USERID: ${{ secrets.DEV_USER }} #but what if the IF was edited by another user in the tenant?
       BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} 
     steps:
       - uses: actions/checkout@v2
@@ -24,9 +46,9 @@ jobs:
         run: /usr/bin/sync_to_git_repository.sh
         shell: bash
         env:
-          PACKAGE_ID: CP001TrainingPackage
-          INCLUDE_IDS: IF1002_CPI_to_Mail_-_Weatherbit_-_LP #voorlopig hardgecodeerd
-          COMMIT_MESSAGE: 'Update IF1002_CPI_to_Mail_-_Weatherbit_-_LP'
+          PACKAGE_ID:  ${{ github.event.inputs.packageId }}
+          INCLUDE_IDS: ${{ github.event.inputs.includedIds }}
+          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.includedIds }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }}' 
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
@@ -36,7 +58,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: engswee/flashpipe:2.x.x-lite
+      image: engswee/flashpipe:2.x.x
     env:
       HOST_TMN:  ${{ secrets.DEV_HOST_TMN }}
       BASIC_USERID: ${{ secrets.DEV_USER }} # When using Basic authentication
@@ -48,26 +70,26 @@ jobs:
       - uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
       - run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/CP001TrainingPackage/IF1002_CPI_to_Mail_-_Weatherbit_-_LP" >> $GITHUB_ENV
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}/${{ github.event.inputs.includedIds }}" >> $GITHUB_ENV
           #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
           #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
       # Upload/Update design time
-      - name: 'Update/Upload IF1002_CPI_to_Mail_-_Weatherbit_-_LP to design time'
+      - name: 'Update/Upload ${{ github.event.inputs.includedIds }} to design time'
         run: /usr/bin/update_designtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+          IFLOW_ID: ${{ github.event.inputs.includedIds }}
           IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
-          PACKAGE_ID: CP001TrainingPackage
+          PACKAGE_ID: ${{ github.event.inputs.packageID }}
           PACKAGE_NAME: "CP001 - TrainingPackage"
           #WORK_DIR: <working_directory> # Optional
           #VERSION_HANDLING: <version_no_handling_during_update> # Optional
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
       # Deploy runtime
-      - name: 'Deploy IF1002_CPI_to_Mail_-_Weatherbit_-_LP to runtime'
+      - name: 'Deploy ${{ github.event.inputs.includedIds }} to runtime'
         run: /usr/bin/deploy_runtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+          IFLOW_ID: ${{ github.event.inputs.includedIds }}
           #DELAY_LENGTH: <delay_in_seconds> # Optional
           #MAX_CHECK_LIMIT: <max_check_limit> # Optional
