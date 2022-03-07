@@ -20,15 +20,15 @@ on:
       dirNaming:
         description: 'Naming convention for IFlow directories (optional) - ID (default value if empty), NAME'
         required: false
-      commitDescription:
-        description: 'Additional commit description (optional)'
-        required: false
-      authorName:
-        description: 'Who gets credit for the update? (for the commit message)'
-        required: false
-      version:
-        description: 'Which version gets deployed? (for the commit message)'
-        required: false
+#       commitDescription:
+#         description: 'Additional commit description (optional)'
+#         required: false
+#       authorName:
+#         description: 'Who gets credit for the update? (for the commit message)'
+#         required: false
+#       version:
+#         description: 'Which version gets deployed? (for the commit message)'
+#         required: false
 
 jobs:
   build:
