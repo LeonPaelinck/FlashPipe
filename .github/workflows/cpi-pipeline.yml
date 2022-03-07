@@ -6,12 +6,18 @@ on:
       packageId:
         description: 'Package ID'
         required: true
+      packageName:
+        description: 'Package Name'
+        required: true
       directory:
         description: 'Target Git directory, relative from repository root (the name of the IF)'
         required: true
-      includedIds:
+      integrationFlowId:
         description: 'The ID of the IF'
-        required: false
+        required: true
+      integrationFlowName:
+        description: 'The name of the IF'
+        required: true
       draft:
         description: 'Draft handling (optional) - SKIP (default value if empty), ADD, ERROR'
         required: false
@@ -47,8 +53,8 @@ jobs:
         shell: bash
         env:
           PACKAGE_ID:  ${{ github.event.inputs.packageId }}
-          INCLUDE_IDS: ${{ github.event.inputs.includedIds }}
-          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.includedIds }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }}'
+          INCLUDE_IDS: ${{ github.event.inputs.integrationFlowId }}
+          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.integrationFlowId }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }}'
           COMMIT_DESCRIPTION: ${{ github.event.inputs.commitDescription }}
       - name: Push changes
         uses: ad-m/github-push-action@master
@@ -71,26 +77,26 @@ jobs:
       - uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
       - run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}/${{ github.event.inputs.includedIds }}" >> $GITHUB_ENV
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.packageId }}/${{ github.event.inputs.integrationFlowId }}" >> $GITHUB_ENV
           #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
           #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
       # Upload/Update design time
-      - name: 'Update/Upload ${{ github.event.inputs.includedIds }} to design time'
+      - name: 'Update/Upload ${{ github.event.inputs.integrationFlowId }} to design time'
         run: /usr/bin/update_designtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: ${{ github.event.inputs.includedIds }}
-          IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
+          IFLOW_ID: ${{ github.event.inputs.integrationFlowId }}
+          IFLOW_NAME: ${{ github.event.inputs.integrationFlowName }} 
           PACKAGE_ID: ${{ github.event.inputs.packageID }}
-          PACKAGE_NAME: "CP001 - TrainingPackage"
+          PACKAGE_NAME: ${{ github.event.inputs.packageName }} 
           #WORK_DIR: <working_directory> # Optional
           #VERSION_HANDLING: <version_no_handling_during_update> # Optional
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
       # Deploy runtime
-      - name: 'Deploy ${{ github.event.inputs.includedIds }} to runtime'
+      - name: 'Deploy ${{ github.event.inputs.integrationFlowId }} to runtime'
         run: /usr/bin/deploy_runtime_artifact.sh
         shell: bash
         env:
-          IFLOW_ID: ${{ github.event.inputs.includedIds }}
+          IFLOW_ID: ${{ github.event.inputs.integrationFlowId }}
           #DELAY_LENGTH: <delay_in_seconds> # Optional
           #MAX_CHECK_LIMIT: <max_check_limit> # Optional
