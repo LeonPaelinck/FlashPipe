@@ -65,10 +65,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # Set environment variables for update_designtime_artifact.sh
-      - run: |
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/<path_to_iflow_dir>" >> $GITHUB_ENV
-          echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
-          echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
+      - run: | 
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.directory }}" >> $GITHUB_ENV
+          #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
+          #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
       # Upload/Update design time
       - name: 'Upload/Update design time'
         run: /usr/bin/update_designtime_artifact.sh
@@ -79,7 +79,7 @@ jobs:
           PACKAGE_ID: CP001TrainingPackage
           PACKAGE_NAME: "CP001 - TrainingPackage"
           WORK_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
-          #VERSION_HANDLING: <version_no_handling_during_update> # Optional
+          #VERSION_HANDLING: <<version_no_handling_during_update> # Optional
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
       # Deploy runtime
       - name: 'Upload/Update design time'
