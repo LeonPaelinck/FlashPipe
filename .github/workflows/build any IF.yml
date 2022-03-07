@@ -1,7 +1,7 @@
-name: cpi-pipeline
+name: build any IF
 on:
   workflow_dispatch:
-      inputs:
+    inputs:
       packageId:
         description: 'Package ID'
         required: true
