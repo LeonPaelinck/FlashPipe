@@ -1,11 +1,36 @@
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 name: cpi-pipeline
 on:
-  push:
-    branches:
-      -  main
+  workflow_dispatch:
+    
 
 jobs:
+
+  sync:
+    runs-on: ubuntu-latest
+    container:
+      image: engswee/flashpipe:2.x.x-lite
+    env:
+      HOST_TMN: ${{ secrets.DEV_HOST_TMN }}
+      BASIC_USERID: ${{ secrets.DEV_USER }}
+      BASIC_PASSWORD: ${{ secrets.DEV_PASSWORD }} 
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'Set GIT_SRC_DIR for sync_to_git_repository.sh'
+        run: |
+          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/CP001TrainingPackage/IF1002_CPI_to_Mail_-_Weatherbit_-_LP" >> $GITHUB_ENV
+      - name: 'Sync IFlow'
+        run: /usr/bin/sync_to_git_repository.sh
+        shell: bash
+        env:
+          PACKAGE_ID: CP001TrainingPackage
+          COMMIT_MESSAGE: 'Update IF1002_CPI_to_Mail_-_Weatherbit_-_LP'
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
   build:
     runs-on: ubuntu-latest
     container:
