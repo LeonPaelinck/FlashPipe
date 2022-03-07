@@ -1,5 +1,0 @@
-#Store metainfo properties
-#Mon Mar 07 13:59:13 UTC 2022
-description=Each day at 8am a mail will be sent featuring the weathercast.
-source=CPI
-target=Mail
