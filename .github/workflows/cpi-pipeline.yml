@@ -18,9 +18,9 @@ on:
       dirNaming:
         description: 'Naming convention for IFlow directories (optional) - ID (default value if empty), NAME'
         required: false
-      #message:
-        #description: 'Commit message (optional)'
-        #required: false
+      commitDescription:
+        description: 'Additional commit description (optional)'
+        required: false
       authorName:
         description: 'Who gets credit for the update? (for the commit message)'
         required: false
@@ -48,7 +48,8 @@ jobs:
         env:
           PACKAGE_ID:  ${{ github.event.inputs.packageId }}
           INCLUDE_IDS: ${{ github.event.inputs.includedIds }}
-          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.includedIds }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }}' 
+          COMMIT_MESSAGE: 'Update ${{ github.event.inputs.includedIds }} ${{ github.event.inputs.version }} by ${{ github.event.inputs.authorName }}'
+          COMMIT_DESCRIPTION: ${{ github.event.inputs.commitDescription }}
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
