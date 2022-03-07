@@ -54,36 +54,36 @@ jobs:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref }}
         
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: engswee/flashpipe:2.x.x-lite
-    env:
-          HOST_TMN: $(dev-host-tmn)
-          BASIC_USERID: $(dev-user) # When using Basic authentication
-          BASIC_PASSWORD: $(dev-password) # When using Basic authentication
-    steps:
-      - uses: actions/checkout@v2
-      # Set environment variables for update_designtime_artifact.sh
-      - run: | 
-          echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.directory }}" >> $GITHUB_ENV
-          #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
-          #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
-      # Upload/Update design time
-      - name: 'Upload/Update design time'
-        run: /usr/bin/update_designtime_artifact.sh
-        shell: bash
-        env:
-          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
-          IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
-          PACKAGE_ID: CP001TrainingPackage
-          PACKAGE_NAME: "CP001 - TrainingPackage"
-          WORK_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
-          #VERSION_HANDLING: <<version_no_handling_during_update> # Optional
-          #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
-      # Deploy runtime
-      - name: 'Upload/Update design time'
-        run: /usr/bin/deploy_runtime_artifact.sh
-        shell: bash
-        env:
-          IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+#   build:
+#     runs-on: ubuntu-latest
+#     container:
+#       image: engswee/flashpipe:2.x.x-lite
+#     env:
+#           HOST_TMN: $(dev-host-tmn)
+#           BASIC_USERID: $(dev-user) # When using Basic authentication
+#           BASIC_PASSWORD: $(dev-password) # When using Basic authentication
+#     steps:
+#       - uses: actions/checkout@v2
+#       # Set environment variables for update_designtime_artifact.sh
+#       - run: | 
+#           echo "GIT_SRC_DIR=$GITHUB_WORKSPACE/${{ github.event.inputs.directory }}" >> $GITHUB_ENV
+#           #echo "PARAM_FILE=$GITHUB_WORKSPACE/<path_to_param_file>" >> $GITHUB_ENV # Optional
+#           #echo "MANIFEST_FILE=$GITHUB_WORKSPACE/<path_to_manifest_file>" >> $GITHUB_ENV # Optional
+#       # Upload/Update design time
+#       - name: 'Upload/Update design time'
+#         run: /usr/bin/update_designtime_artifact.sh
+#         shell: bash
+#         env:
+#           IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
+#           IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
+#           PACKAGE_ID: CP001TrainingPackage
+#           PACKAGE_NAME: "CP001 - TrainingPackage"
+#           WORK_DIR: "$(Build.SourcesDirectory)/FlashPipe/IF1002 CPI to Mail - Weatherbit - LP"
+#           #VERSION_HANDLING: <<version_no_handling_during_update> # Optional
+#           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
+#       # Deploy runtime
+#       - name: 'Upload/Update design time'
+#         run: /usr/bin/deploy_runtime_artifact.sh
+#         shell: bash
+#         env:
+#           IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
