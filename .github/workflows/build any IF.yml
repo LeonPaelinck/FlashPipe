@@ -8,9 +8,6 @@ on:
       packageName:
         description: 'Package Name'
         required: true
-      directory:
-        description: 'Target Git directory, relative from repository root (the name of the IF)'
-        required: true
       integrationFlowId:
         description: 'The ID of the IF'
         required: true
