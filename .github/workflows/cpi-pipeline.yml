@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: engswee/flashpipe:<flashpipe_version>
+      image: engswee/flashpipe:2.x.x-lite
     env:
       HOST_TMN:  ${{ secrets.DEV_HOST_TMN }}
       BASIC_USERID: ${{ secrets.DEV_USER_ID }} # When using Basic authentication
