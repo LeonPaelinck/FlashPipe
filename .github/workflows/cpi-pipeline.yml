@@ -53,9 +53,9 @@ jobs:
         shell: bash
         env:
           IFLOW_ID: IF1002_CPI_to_Mail_-_Weatherbit_-_LP
-          IFLOW_NAME: IF1002 CPI to Mail - Weatherbit - LP
+          IFLOW_NAME: "IF1002 CPI to Mail - Weatherbit - LP"
           PACKAGE_ID: CP001TrainingPackage
-          PACKAGE_NAME: CP001 - TrainingPackage
+          PACKAGE_NAME: "CP001 - TrainingPackage"
           #WORK_DIR: <working_directory> # Optional
           #VERSION_HANDLING: <version_no_handling_during_update> # Optional
           #SCRIPT_COLLECTION_MAP: <comma_separated_source/target_pairs> # Optional
