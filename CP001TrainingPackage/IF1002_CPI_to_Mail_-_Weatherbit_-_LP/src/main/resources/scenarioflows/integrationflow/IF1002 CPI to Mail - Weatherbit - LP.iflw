@@ -238,7 +238,7 @@ Weather post
 
 Greetings!
 
-Edited by Leon 1.0.13</value>
+Edited from GitHub, let's see what happens when we run the build/deploy.</value>
                 </ifl:property>
                 <ifl:property>
                     <key>ssl</key>
