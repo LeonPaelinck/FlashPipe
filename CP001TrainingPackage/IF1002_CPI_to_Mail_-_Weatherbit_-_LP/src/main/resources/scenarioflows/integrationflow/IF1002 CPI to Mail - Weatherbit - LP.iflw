@@ -184,7 +184,7 @@
                 </ifl:property>
                 <ifl:property>
                     <key>httpAddressWithoutQuery</key>
-                    <value>http://api.openweathermap.org/data/2.5/weather/</value>
+                    <value>http://api.openweathermap.org/data/2.5/weather/error/</value>
                 </ifl:property>
             </bpmn2:extensionElements>
         </bpmn2:messageFlow>
