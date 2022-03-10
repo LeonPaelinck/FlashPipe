@@ -5,10 +5,15 @@ The two pipelines are still manually triggered on GitHub. The only advantage is 
 
 ## Pipelines
 
+### Credentials
+
 Basic Authentication is used. Three credentials are required in the security settings:
--DEV_HOST_TMN: The link to the tenant, without https:// Example: \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*.hana.ondemand.com/
--DEV_USER: your P User
--DEV_PASSWORD
+- DEV_HOST_TMN: The link to the tenant, without https:// 
+    - Example: \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*.hana.ondemand.com/
+- DEV_USER: your P User
+    - Example: P\*\*\*\*\*\*\*\*\*6
+- DEV_PASSWORD
+    - Example: *\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
 **Never store these as plain text!**
 
