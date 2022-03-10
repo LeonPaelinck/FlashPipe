@@ -15,6 +15,8 @@ Basic Authentication is used. Three credentials are required in the security set
 - DEV_PASSWORD
     - Example: *\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
 
+[Where to find the credentials in GitHub](Images\GitHub Secrets instructions.png)
+
 **Never store these as plain text!**
 
 ### Sync
