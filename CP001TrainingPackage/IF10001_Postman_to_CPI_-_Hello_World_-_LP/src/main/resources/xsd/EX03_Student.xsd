@@ -1,0 +1,17 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="student">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:int" name="studentID" minOccurs = '0'/>
+        <xs:element type="xs:string" name="personGUID" minOccurs = '0'/>
+        <xs:element type="xs:string" name="fulltime" minOccurs = '0'/>
+        <xs:element type="xs:string" name="lastName" minOccurs = '0'/>
+        <xs:element type="xs:string" name="firstName" minOccurs = '0'/>
+        <xs:element type="xs:string" name="middleName" minOccurs = '0'/>
+        <xs:element type="xs:long" name="hireDate" minOccurs = '0'/>
+        <xs:element type="xs:string" name="emailAddr" minOccurs = '0'/>
+        <xs:element type="xs:string" name="roleID" minOccurs = '0'/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
