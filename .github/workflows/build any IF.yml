@@ -1,4 +1,4 @@
-name: build any IF
+name: Build any IF
 on:
   workflow_dispatch:
     inputs:
